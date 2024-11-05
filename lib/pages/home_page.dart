@@ -17,10 +17,24 @@ class _HomePageState extends State<HomePage> {
     notesGet();
   }
   notesGet() async {
-    // Get notes from database
     notes = await AdminService().getNotes();
-    print(notes);
     setState(() {});
+  }
+  colorGet (String color) {
+    switch (color) {
+      case 'red':
+        return Colors.red;
+      case 'green':
+        return Colors.green;
+      case 'blue':
+        return Colors.blue;
+      case 'grey':
+        return Colors.grey;
+      case 'orange':
+        return Colors.orange;
+      default:
+        return Colors.white;
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -28,8 +42,28 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Home Page'),
       ),
-      body: const Center(
-        child: Text('Home Page'),
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: notesGet,
+                child: const Text('Actualizar')
+              ),
+            ],
+          ),
+          for (var note in notes)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                tileColor: colorGet(note['color']),
+                textColor: Colors.white,
+                title: Text(note['title']),
+                subtitle: Text(note['content']),
+              ),
+            ),
+        ],
       ),
     );
   }
