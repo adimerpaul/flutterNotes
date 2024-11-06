@@ -40,4 +40,12 @@ class AdminService {
       return 'Error';
     }
   }
+  Future deleteNotes(int id) async {
+    var response = await http.delete(Uri.parse(url+'notes/$id'));
+    if (response.statusCode == 200) {
+      return 'Success';
+    } else {
+      return 'Error';
+    }
+  }
 }

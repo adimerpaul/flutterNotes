@@ -87,16 +87,30 @@ class _HomePageState extends State<HomePage> {
                     textColor: Colors.white,
                     title: Text(notes[index]['title']),
                     subtitle: Text(notes[index]['content']),
-                    leading: IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () async {
-                        await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario(
-                          id: notes[index]['id'],
-                          title: notes[index]['title'],
-                          content: notes[index]['content']
-                        )));
-                        await notesGet();
-                      },
+                    leading: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () async {
+                              await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario(
+                                id: notes[index]['id'],
+                                title: notes[index]['title'],
+                                content: notes[index]['content']
+                              )));
+                              await notesGet();
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () async {
+                              await AdminService().deleteNotes(notes[index]['id']);
+                              await notesGet();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
