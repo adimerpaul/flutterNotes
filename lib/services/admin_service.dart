@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 class AdminService {
-  static const url = 'http://localhost:8000/api/';
+  static const url = 'https://2e80-2800-cd0-afc8-eb00-69d9-a2b0-5150-ee07.ngrok-free.app/api/';
   Future getNotes() async {
     var response = await http.get(Uri.parse(url+'notes'));
     if (response.statusCode == 200) {

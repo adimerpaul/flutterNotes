@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notas/pages/Login.dart';
 import 'package:notas/pages/home_page.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const HomePage(),
+      home: const Login(),
     );
   }
 }
