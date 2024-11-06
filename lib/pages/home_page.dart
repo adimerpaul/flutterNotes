@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../services/admin_service.dart';
+import 'formulario.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -64,6 +65,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const Formulario()));
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
