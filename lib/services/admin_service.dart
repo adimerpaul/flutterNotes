@@ -12,4 +12,18 @@ class AdminService {
       return 'Error';
     }
   }
+  Future postNotes(String title, String content) async {
+    var response = await http.post(
+      Uri.parse(url+'notes'),
+      body: {
+        'title': title,
+        'content': content,
+      }
+    );
+    if (response.statusCode == 200) {
+      return 'Success';
+    } else {
+      return 'Error';
+    }
+  }
 }

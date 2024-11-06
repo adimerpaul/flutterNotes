@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../services/admin_service.dart';
+
 class Formulario extends StatefulWidget {
   const Formulario({super.key});
 
@@ -38,6 +40,11 @@ class _FormularioState extends State<Formulario> {
           ),
           ElevatedButton(
             onPressed: () {
+              AdminService().postNotes(
+                titleController.text,
+                contentController.text,
+              );
+              Navigator.pop(context);
             },
             child: const Text('Guardar'),
           ),
