@@ -54,16 +54,55 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          for (var note in notes)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                tileColor: colorGet(note['color']),
-                textColor: Colors.white,
-                title: Text(note['title']),
-                subtitle: Text(note['content']),
-              ),
+          // for (var note in notes)
+          //   Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: ListTile(
+          //       tileColor: colorGet(note['color']),
+          //       textColor: Colors.white,
+          //       title: Text(note['title']),
+          //       subtitle: Text(note['content']),
+          //       leading: IconButton(
+          //         icon: const Icon(Icons.edit),
+          //         onPressed: () async {
+          //           await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario(
+          //             id: note['id'],
+          //             title: note['title'],
+          //             content: note['content']
+          //           )));
+          //           await notesGet();
+          //         },
+          //       ),
+          //     ),
+          //   ),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: notes.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    tileColor: colorGet(notes[index]['color']),
+                    textColor: Colors.white,
+                    title: Text(notes[index]['title']),
+                    subtitle: Text(notes[index]['content']),
+                    leading: IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () async {
+                        await Navigator.push(context, MaterialPageRoute(builder: (context) => Formulario(
+                          id: notes[index]['id'],
+                          title: notes[index]['title'],
+                          content: notes[index]['content']
+                        )));
+                        await notesGet();
+                      },
+                    ),
+                  ),
+                );
+              },
             ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

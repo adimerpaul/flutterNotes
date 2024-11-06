@@ -26,4 +26,18 @@ class AdminService {
       return 'Error';
     }
   }
+  Future putNotes(int id, String title, String content) async {
+    var response = await http.put(
+      Uri.parse(url+'notes/$id'),
+      body: {
+        'title': title,
+        'content': content,
+      }
+    );
+    if (response.statusCode == 200) {
+      return 'Success';
+    } else {
+      return 'Error';
+    }
+  }
 }

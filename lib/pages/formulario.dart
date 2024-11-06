@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 import '../services/admin_service.dart';
 
 class Formulario extends StatefulWidget {
-  const Formulario({super.key});
+  final String? title;
+  final String? content;
+  final int? id;
+  const Formulario({
+    super.key,
+    this.title,
+    this.content,
+    this.id,
+  });
 
   @override
   State<Formulario> createState() => _FormularioState();
@@ -12,6 +20,13 @@ class Formulario extends StatefulWidget {
 class _FormularioState extends State<Formulario> {
   TextEditingController titleController = TextEditingController();
   TextEditingController contentController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    titleController.text = widget.title ?? '';
+    contentController.text = widget.content ?? '';
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +54,19 @@ class _FormularioState extends State<Formulario> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              AdminService().postNotes(
-                titleController.text,
-                contentController.text,
-              );
+            onPressed: () async {
+              if (widget.id != null) {
+                await AdminService().putNotes(
+                  widget.id!,
+                  titleController.text,
+                  contentController.text,
+                );
+              } else {
+                await AdminService().postNotes(
+                  titleController.text,
+                  contentController.text,
+                );
+              }
               Navigator.pop(context);
             },
             child: const Text('Guardar'),
