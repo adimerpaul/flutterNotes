@@ -1,8 +1,28 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'package:localstorage/localstorage.dart';
+
 class AdminService {
-  static const url = 'https://2e80-2800-cd0-afc8-eb00-69d9-a2b0-5150-ee07.ngrok-free.app/api/';
+  static const url = 'http://localhost:8000/api/';
+  Future login(String email, String password) async {
+    var response = await http.post(
+      Uri.parse(url+'login'),
+      body: {
+        'email': email,
+        'password': password,
+      }
+    );
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      // print(jsonResponse);
+      var token = jsonResponse['token'];
+      localStorage.setItem('token', token);
+      return true;
+    } else {
+      return false;
+    }
+  }
   Future getNotes() async {
     var response = await http.get(Uri.parse(url+'notes'));
     if (response.statusCode == 200) {
